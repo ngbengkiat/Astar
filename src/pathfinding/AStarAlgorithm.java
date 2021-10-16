@@ -55,16 +55,22 @@ public class AStarAlgorithm extends Observable {
                     continue;
                 }
 
-                double tempScore = current.getCost() + current.distanceTo(n);
+                double extraCost = 1;
+                int dir = -1;
+                dir = current.dirTo(n);
+                if (dir != current.getDir()) extraCost = 2;
+                double tempScore = current.getCost() + current.distanceTo(n) * extraCost;
 
                 if (openList.contains(n)) {
                     if (tempScore < n.getCost()) {
                         n.setCost(tempScore);
                         n.setParent(current);
+                        n.setDir(dir);
                     }
                 } else {
                     n.setCost(tempScore);
                     openList.add(n);
+                    n.setDir(dir);
                     n.setParent(current);
                 }
 
