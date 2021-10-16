@@ -8,12 +8,12 @@ import pathfinding.element.Node;
 public class Tile extends Node {
 
     private int x, y;
-    public static int TILE_SIZE = 20;
+    public static int TILE_SIZE = 10;
 
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        setValid(true);
+        this.setObsValue(0.0);
     }
 
     public int getX() {

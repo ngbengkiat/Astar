@@ -51,7 +51,7 @@ public class AStarAlgorithm extends Observable {
 
             for (Node n : current.getNeighbours()) {
 
-                if (closedList.contains(n) || !n.isValid()) {
+                if (closedList.contains(n) || n.getObsValue()==1.0) {
                     continue;
                 }
 
@@ -91,7 +91,7 @@ public class AStarAlgorithm extends Observable {
         this.openList = null;
         this.closedList = null;
         for (Node n : network.getNodes()) {
-            n.setValid(true);
+            n.setObsValue(0.0);
         }
     }
 

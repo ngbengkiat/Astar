@@ -126,7 +126,7 @@ public class GridPanel extends JPanel implements Observer {
             for (Tile t : grid.getTiles()) {
                 g.setColor(new Color(220, 220, 220));
                 g.drawRect(t.getX() * Tile.TILE_SIZE, t.getY() * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
-                if (!t.isValid()) {
+                if (t.getObsValue()==1.0) {
                     g.setColor(Color.GRAY);
                     int x = (t.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;
                     int y = (t.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;

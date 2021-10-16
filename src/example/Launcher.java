@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 
 public class Launcher {
 
-    public static final int ROW_COUNT = 20;
-    public static final int COLUMN_COUNT = 20;
+    public static final int ROW_COUNT = 40;
+    public static final int COLUMN_COUNT = 80;
 
     private static MainFrame frame;
     private static JPanel container;
@@ -24,18 +24,19 @@ public class Launcher {
 
     public static void main(String[] args) {
         
+        //Create grid
         Grid grid = generateGrid(COLUMN_COUNT, ROW_COUNT);
+        //Pre assign neighbours
         for (Tile t : grid.getTiles()) {
             t.calculateNeighbours(grid);
         }
-        
+        //Create solver
         astar = new AStarAlgorithm(grid);
         
         initUI();
 
         astar.addObserver(canvas);
         astar.updateUI();
-
     }
 
     private static void initUI() {

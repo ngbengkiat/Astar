@@ -70,7 +70,7 @@ public class ControlsPanel extends JPanel {
                 selector.setSelectedIndex(2);
                 break;
             default:
-                t.reverseValidation();
+                t.reverseObsValue();
                 break;
         }
 

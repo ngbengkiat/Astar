@@ -7,7 +7,7 @@ public abstract class Node {
     private Node parent;
     private ArrayList<Node> neighbours;
     private double cost, heuristic, function;
-    private boolean valid;
+    private double obsValue;
     private int dir=-1;
 
     public abstract void calculateNeighbours(Network network);
@@ -67,16 +67,17 @@ public abstract class Node {
         this.parent = parent;
     }
 
-    public boolean isValid() {
-        return valid;
+    public double getObsValue() {
+        return obsValue;
     }
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
+    public void setObsValue(double obsValue) {
+        this.obsValue = obsValue;
     }
     
-    public void reverseValidation(){
-        valid = !valid;
+    public void reverseObsValue(){
+        if (obsValue==0) obsValue=1;
+        else obsValue = 0;
     }
 
 }
