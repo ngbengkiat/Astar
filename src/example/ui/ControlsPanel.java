@@ -12,6 +12,10 @@ import pathfinding.AStarAlgorithm;
 
 public class ControlsPanel extends JPanel {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private AStarAlgorithm algorithm;
     private SelectionType selectionType;
     
@@ -35,7 +39,7 @@ public class ControlsPanel extends JPanel {
         selector.addItem("Obstacle");
         selector.setBounds(10, 35, width - 20, 30);
         selector.addActionListener((ActionEvent e) -> {
-            selectionType = selectionType.values()[selector.getSelectedIndex()];
+            selectionType = SelectionType.values()[selector.getSelectedIndex()];
         });
         add(selector);
 

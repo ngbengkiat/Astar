@@ -3,7 +3,7 @@ package pathfinding.element;
 import java.util.ArrayList;
 
 public abstract class Node {
-
+    public static double maxObsValue=100.0;
     private Node parent;
     private ArrayList<Node> neighbours;
     private double cost, heuristic, function;
@@ -76,7 +76,7 @@ public abstract class Node {
     }
     
     public void reverseObsValue(){
-        if (obsValue==0) obsValue=1;
+        if (obsValue==0) obsValue=maxObsValue;
         else obsValue = 0;
     }
 

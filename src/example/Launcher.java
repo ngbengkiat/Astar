@@ -4,7 +4,6 @@ import example.element.Grid;
 import example.element.Tile;
 import example.ui.ControlsPanel;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import pathfinding.AStarAlgorithm;
 import example.ui.MainFrame;
 import example.ui.GridPanel;
@@ -25,17 +24,21 @@ public class Launcher {
     public static void main(String[] args) {
         
         //Create grid
-        Grid grid = generateGrid(COLUMN_COUNT, ROW_COUNT);
+        Grid grid = new Grid(COLUMN_COUNT, ROW_COUNT);
         //Pre assign neighbours
         for (Tile t : grid.getTiles()) {
             t.calculateNeighbours(grid);
         }
+        grid.AddObstacle(15,15, 20,10);
+        grid.AddObstacle(55,10, 20,10);
+        grid.AddObstacle(40,10, 10,20);
+        grid.ExpandObstacles();
         //Create solver
         astar = new AStarAlgorithm(grid);
         
         initUI();
 
-        astar.addObserver(canvas);
+        astar.addPropertyChangeListener(canvas);
         astar.updateUI();
     }
 
@@ -65,20 +68,6 @@ public class Launcher {
         frame.setContentPane(container);
         frame.setVisible(true);
         frame.pack();
-    }
-
-    private static Grid generateGrid(int width, int height) {
-        ArrayList<Tile> tiles = new ArrayList<>();
-
-        for (int i = 0; i < COLUMN_COUNT; i++) {
-            for (int j = 0; j < ROW_COUNT; j++) {
-                Tile t = new Tile(i, j);
-                tiles.add(t);
-            }
-        }
-
-        return new Grid(width, height, tiles);
-
     }
 
 }

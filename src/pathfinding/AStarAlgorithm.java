@@ -1,11 +1,12 @@
 package pathfinding;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Observable;
 import pathfinding.element.Network;
 import pathfinding.element.Node;
 
-public class AStarAlgorithm extends Observable {
+public class AStarAlgorithm {
 
     private Network network;
     private ArrayList<Node> path;
@@ -15,11 +16,19 @@ public class AStarAlgorithm extends Observable {
 
     private ArrayList<Node> openList;
     private ArrayList<Node> closedList;
-
+    private PropertyChangeSupport support;
+    
     public AStarAlgorithm(Network network) {
         this.network = network;
+        support = new PropertyChangeSupport(this);
+    }
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
     }
 
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
+    }
     public void solve() {
 
         if (start == null && end == null) {
@@ -51,7 +60,7 @@ public class AStarAlgorithm extends Observable {
 
             for (Node n : current.getNeighbours()) {
 
-                if (closedList.contains(n) || n.getObsValue()==1.0) {
+                if (closedList.contains(n) || n.getObsValue()==Node.maxObsValue) {
                     continue;
                 }
 
@@ -59,7 +68,7 @@ public class AStarAlgorithm extends Observable {
                 int dir = -1;
                 dir = current.dirTo(n);
                 if (dir != current.getDir()) extraCost = 2;
-                double tempScore = current.getCost() + current.distanceTo(n) * extraCost;
+                double tempScore = current.getCost() + current.distanceTo(n) * extraCost + n.getObsValue();
 
                 if (openList.contains(n)) {
                     if (tempScore < n.getCost()) {
@@ -90,9 +99,10 @@ public class AStarAlgorithm extends Observable {
         this.path = null;
         this.openList = null;
         this.closedList = null;
-        for (Node n : network.getNodes()) {
-            n.setObsValue(0.0);
-        }
+        //Don't reset obstacles
+        //for (Node n : network.getNodes()) {
+        //    n.setObsValue(0.0);
+        //}
     }
 
     private void retracePath(Node current) {
@@ -118,9 +128,8 @@ public class AStarAlgorithm extends Observable {
     }
 
     public void updateUI() {
-        setChanged();
-        notifyObservers();
-        clearChanged();
+        support.firePropertyChange("news", 0, this);
+        
     }
 
     public Network getNetwork() {

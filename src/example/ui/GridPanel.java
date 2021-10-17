@@ -9,16 +9,20 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import pathfinding.AStarAlgorithm;
 import pathfinding.element.Node;
 
-public class GridPanel extends JPanel implements Observer {
+public class GridPanel extends JPanel implements PropertyChangeListener  {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private Grid grid;
     private ArrayList<Tile> path;
 
@@ -126,13 +130,15 @@ public class GridPanel extends JPanel implements Observer {
             for (Tile t : grid.getTiles()) {
                 g.setColor(new Color(220, 220, 220));
                 g.drawRect(t.getX() * Tile.TILE_SIZE, t.getY() * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
-                if (t.getObsValue()==1.0) {
-                    g.setColor(Color.GRAY);
+                if (t.getObsValue()!=0) {
+                    int v = 255- (int)t.getObsValue()*2;
+                    g.setColor(new Color(v, v, v));
                     int x = (t.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;
                     int y = (t.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;
 
                     g.fillOval(x, y, 10, 10);
                 }
+
             }
         }
 
@@ -141,10 +147,10 @@ public class GridPanel extends JPanel implements Observer {
 
     }
 
-    @Override
-    public void update(Observable o, Object o1) {
+    //@Override
+    public void propertyChange(PropertyChangeEvent evt) {
 
-        AStarAlgorithm alg = (AStarAlgorithm) o;
+        AStarAlgorithm alg = (AStarAlgorithm) evt.getNewValue();
 
         Grid grid = (Grid) alg.getNetwork();
         ArrayList<Node> path = alg.getPath();
