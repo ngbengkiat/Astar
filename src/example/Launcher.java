@@ -27,11 +27,11 @@ public class Launcher {
         Grid grid = new Grid(COLUMN_COUNT, ROW_COUNT);
         //Pre assign neighbours
         for (Tile t : grid.getTiles()) {
-            t.calculateNeighbours(grid);
+            t.calculateNeighbours(grid, true);
         }
-        grid.AddObstacle(15,15, 20,10);
-        grid.AddObstacle(55,10, 20,10);
-        grid.AddObstacle(40,10, 10,20);
+        grid.AddObstacle(15,15, 16,8, 0);
+        grid.AddObstacle(65,10, 16,8, Math.PI/2);
+        grid.AddObstacle(40,10, 16,8, Math.PI/4);
         grid.ExpandObstacles();
         //Create solver
         astar = new AStarAlgorithm(grid);

@@ -25,7 +25,7 @@ public class Tile extends Node {
     }
 
     @Override
-    public void calculateNeighbours(Network network) {
+    public void calculateNeighbours(Network network, boolean diagFlag) {
         
         Grid grid = (Grid) network;
 
@@ -51,23 +51,23 @@ public class Tile extends Node {
         if (y < maxY) {
             nodes.add(grid.find(x, y + 1)); //south
         }
+        if (diagFlag == true) {
+            if (x > minX && y > minY) {
+                nodes.add(grid.find(x - 1, y - 1)); // northwest
+            }
 
-        if (x > minX && y > minY) {
-            nodes.add(grid.find(x - 1, y - 1)); //northwest   
+            if (x < maxX && y < maxY) {
+                nodes.add(grid.find(x + 1, y + 1)); // southeast
+            }
+
+            if (x < maxX && y > minY) {
+                nodes.add(grid.find(x + 1, y - 1)); // northeast
+            }
+
+            if (x > minY && y < maxY) {
+                nodes.add(grid.find(x - 1, y + 1)); // southwest
+            }
         }
-        
-        if (x < maxX && y < maxY) {
-            nodes.add(grid.find(x + 1, y + 1)); //southeast  
-        }
-        
-        if(x < maxX && y > minY){
-            nodes.add(grid.find(x + 1, y - 1)); //northeast  
-        }
-        
-        if(x > minY && y < maxY){
-            nodes.add(grid.find(x - 1, y + 1)); //southwest
-        }
-        
         setNeighbours(nodes);
 
     }
@@ -83,21 +83,27 @@ public class Tile extends Node {
         return new Point(x,y).distance(new Point(d.x, d.y));
     }
     @Override
-    public int dirTo(Node dest) {
+    public double dirTo(Node dest) {
         Tile d = (Tile) dest;
         int dx = d.x - x;
         int dy = d.y - y;
-        int ret=-1;
-        //E-0, NE-1, N-2, NW-3, W-4, SW-5, S-6, SE-7
-        if (dx==1 && dy==0) return 0; 
-        else if (dx==1 && dy==1) ret = 1; 
-        else if (dx==0 && dy==1) ret = 2; 
-        else if (dx==-1 && dy==1) ret = 3; 
-        else if (dx==-1 && dy==0) ret = 4; 
-        else if (dx==-1 && dy==-1) ret = 5; 
-        else if (dx==0 && dy==-1) ret = 6; 
-        else if (dx==1 && dy==-1) ret = 7; 
-        return ret;
+        return Math.atan2(dy, dx);
+        // int ret=-1;
+        // //E-0, NE-1, N-2, NW-3, W-4, SW-5, S-6, SE-7
+        // if (dx==1 && dy==0) return 0; 
+        // else if (dx==1 && dy==1) ret = 1; 
+        // else if (dx==0 && dy==1) ret = 2; 
+        // else if (dx==-1 && dy==1) ret = 3; 
+        // else if (dx==-1 && dy==0) ret = 4; 
+        // else if (dx==-1 && dy==-1) ret = 5; 
+        // else if (dx==0 && dy==-1) ret = 6; 
+        // else if (dx==1 && dy==-1) ret = 7; 
+        // return ret;
     }
-
+    public double angleTo(Node dest) {
+        Tile d = (Tile) dest;
+        double dx = d.x - x;
+        double dy = d.y - y;
+        return Math.atan2(dy, dx);
+    }
 }

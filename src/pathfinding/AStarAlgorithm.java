@@ -65,13 +65,25 @@ public class AStarAlgorithm {
                 }
 
                 double extraCost = 1;
-                int dir = -1;
+                double dir = -1;
                 dir = current.dirTo(n);
                 if (dir != current.getDir()) extraCost = 2;
                 double tempScore = current.getCost() + current.distanceTo(n) * extraCost + n.getObsValue();
 
                 if (openList.contains(n)) {
-                    if (tempScore < n.getCost()) {
+                    if (tempScore == n.getCost()) {
+                        //Same cost
+                        //Choose the one with lower direction difference
+                        double a = n.dirTo(end);
+                        double diff1 = Math.abs(Math.sin(a-dir));
+                        double diff2 = Math.abs(Math.sin(a-n.getDir()));
+                        if (diff1 < diff2) {
+                            n.setCost(tempScore);
+                            n.setParent(current);
+                            n.setDir(dir);
+                        }
+                    }
+                    else if (tempScore < n.getCost()) {
                         n.setCost(tempScore);
                         n.setParent(current);
                         n.setDir(dir);

@@ -8,13 +8,14 @@ public abstract class Node {
     private ArrayList<Node> neighbours;
     private double cost, heuristic, function;
     private double obsValue;
-    private int dir=-1;
+    private double dir=-1;
 
-    public abstract void calculateNeighbours(Network network);
+    public abstract void calculateNeighbours(Network network, boolean diagFlag);
     
     public abstract double distanceTo(Node dest);
 
-    public abstract int dirTo(Node dest);
+    public abstract double dirTo(Node dest);
+    public abstract double angleTo(Node dest);
     
     public abstract double heuristic(Node dest);
 
@@ -26,11 +27,11 @@ public abstract class Node {
         this.cost = cost;
     }
 
-    public int getDir() {
+    public double getDir() {
         return dir;
     }
 
-    public void setDir(int dir) {
+    public void setDir(double dir) {
         this.dir = dir;
     }
     public double getHeuristic() {
