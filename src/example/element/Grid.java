@@ -47,10 +47,21 @@ public class Grid extends Network{
             }
         }
         //Expand another layer for better path generation
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Node current = find(x,y);
+                if (current.getObsValue()==Node.maxObsValue/2) {
+                    for (Node n : current.getNeighbours()) {
+                        if (n.getObsValue()==0.0)
+                            n.setObsValue(Node.maxObsValue/5);
+                    }
+                }
+            }
+        }
     }
     public void AddObstacle(int x0, int y0, int width, int height, double angle) {
-        for (int x=0; x<width; x++) {
-            for (int y=0; y<height; y++) {
+        for (int x=-width/2; x<width/2; x++) {
+            for (int y=-height/2; y<height/2; y++) {
                 int xx = (int)Math.round(x*Math.cos(angle) - y*Math.sin(angle));
                 int yy = (int)Math.round(x*Math.sin(angle) + y*Math.cos(angle));
                 Tile t = find(xx+x0,yy+y0);

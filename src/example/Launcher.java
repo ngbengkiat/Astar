@@ -29,9 +29,10 @@ public class Launcher {
         for (Tile t : grid.getTiles()) {
             t.calculateNeighbours(grid, true);
         }
-        grid.AddObstacle(15,15, 16,8, 0);
-        grid.AddObstacle(65,10, 16,8, Math.PI/2);
-        grid.AddObstacle(40,10, 16,8, Math.PI/4);
+        grid.AddObstacle(15,15, 12,8, 0);
+        grid.AddObstacle(40,6, 12,8, Math.PI/2);
+        grid.AddObstacle(72,10, 16,8, Math.PI/2);
+        grid.AddObstacle(60,30, 16,8, -Math.PI/4);
         grid.ExpandObstacles();
         //Create solver
         astar = new AStarAlgorithm(grid);
