@@ -54,7 +54,7 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
                 int y = me.getY();
 
                 int tileX = x / Tile.TILE_SIZE;
-                int tileY = y / Tile.TILE_SIZE;
+                int tileY = grid.getySize() - 1 - y / Tile.TILE_SIZE;
 
                 Tile t = grid.find(tileX, tileY);
 
@@ -86,23 +86,26 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
+        
+        //This is used to flip the Y-axis
+        int YSIZE = (grid.getySize() - 1) * Tile.TILE_SIZE;
         if (start != null) {
 
-            int x = (start.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 6;
-            int y = (start.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 6;
+            int x = (start.getX() * Tile.TILE_SIZE) -1;//+ (Tile.TILE_SIZE / 2) - 6;
+            int y = YSIZE-(start.getY() * Tile.TILE_SIZE) -1;//+ (Tile.TILE_SIZE / 2) - 6;
 
             g.setColor(new Color(20, 122, 17));
             g.setStroke(widerStroke);
-            g.fillOval(x, y, 12, 12);
+            g.fillOval(x, y, Tile.TILE_SIZE+2, Tile.TILE_SIZE+2);
         }
 
         if (end != null) {
-            int x = (end.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 6;
-            int y = (end.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 6;
+            int x = (end.getX() * Tile.TILE_SIZE)-1;// + (Tile.TILE_SIZE / 2) - 6;
+            int y = YSIZE-(end.getY() * Tile.TILE_SIZE)-1;// + (Tile.TILE_SIZE / 2) - 6;
 
             g.setColor(new Color(16, 49, 119));
             g.setStroke(widerStroke);
-            g.fillOval(x, y, 12, 12);
+            g.fillOval(x, y, Tile.TILE_SIZE+2, Tile.TILE_SIZE+2);
         }
 
         if (path != null) {
@@ -111,16 +114,16 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
                 Tile t = path.get(i);
                 Tile t2 = path.get(i + 1);
 
-                int x = (t.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;
-                int y = (t.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;
+                int x = (t.getX() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
+                int y = YSIZE-(t.getY() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
 
                 int xx = (t2.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2);
-                int yy = (t2.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2);
+                int yy = YSIZE-(t2.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2);
 
                 g.setStroke(widerStroke);
-                g.fillOval(x, y, 10, 10);
+                g.fillOval(x, y, Tile.TILE_SIZE, Tile.TILE_SIZE);
                 g.setStroke(defaultStroke);
-                g.drawLine(x + 5, y + 5, xx, yy);
+                g.drawLine(x + Tile.TILE_SIZE/2, y + Tile.TILE_SIZE/2, xx, yy);
             }
         }
 
@@ -133,10 +136,10 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
                 if (t.getObsValue()!=0) {
                     int v = 255- (int)t.getObsValue()*2;
                     g.setColor(new Color(v, v, v));
-                    int x = (t.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;
-                    int y = (t.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2) - 5;
+                    int x = (t.getX() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
+                    int y = YSIZE-(t.getY() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
 
-                    g.fillOval(x, y, 10, 10);
+                    g.fillOval(x, y, Tile.TILE_SIZE, Tile.TILE_SIZE);
                 }
 
             }

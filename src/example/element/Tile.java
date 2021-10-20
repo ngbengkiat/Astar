@@ -8,7 +8,7 @@ import pathfinding.element.Node;
 public class Tile extends Node {
 
     private int x, y;
-    public static int TILE_SIZE = 10;
+    public static int TILE_SIZE = 7;
 
     public Tile(int x, int y) {
         this.x = x;
@@ -33,8 +33,8 @@ public class Tile extends Node {
 
         int minX = 0;
         int minY = 0;
-        int maxX = grid.getWidth() - 1;
-        int maxY = grid.getHeight() - 1;
+        int maxX = grid.getxSize() - 1;
+        int maxY = grid.getySize() - 1;
 
         if (x > minX) {
             nodes.add(grid.find(x - 1, y)); //west
@@ -88,17 +88,7 @@ public class Tile extends Node {
         int dx = d.x - x;
         int dy = d.y - y;
         return Math.atan2(dy, dx);
-        // int ret=-1;
-        // //E-0, NE-1, N-2, NW-3, W-4, SW-5, S-6, SE-7
-        // if (dx==1 && dy==0) return 0; 
-        // else if (dx==1 && dy==1) ret = 1; 
-        // else if (dx==0 && dy==1) ret = 2; 
-        // else if (dx==-1 && dy==1) ret = 3; 
-        // else if (dx==-1 && dy==0) ret = 4; 
-        // else if (dx==-1 && dy==-1) ret = 5; 
-        // else if (dx==0 && dy==-1) ret = 6; 
-        // else if (dx==1 && dy==-1) ret = 7; 
-        // return ret;
+
     }
     public double angleTo(Node dest) {
         Tile d = (Tile) dest;

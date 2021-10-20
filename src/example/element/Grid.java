@@ -6,37 +6,37 @@ import pathfinding.element.Node;
 
 public class Grid extends Network{
 
-    private int width, height;
+    private int xSize, ySize;
     private ArrayList<Tile> tiles;
 
-    public Grid(int width, int height) {
+    public Grid(int xSize, int ySize) {
         tiles = new ArrayList<>();
         //Add individual cell
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < xSize; i++) {
+            for (int j = 0; j < ySize; j++) {
                 Tile t = new Tile(i, j);
                 tiles.add(t);
             }
         }
-        this.width = width;
-        this.height = height;
+        this.xSize = xSize;
+        this.ySize = ySize;
     }
 
     //Expand obstacle to push robot away. Robot can still go through this expanded cell if necessary
     public void ExpandObstacles() {
         //Create obstacle around boundaries
         //Currently 1 cell thick. Likely need to be more than 1 cell
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                if (x==0 || x==width-1 || y==0 || y==height-1) {
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
+                if (x==0 || x==xSize-1 || y==0 || y==ySize-1) {
                     Node current = find(x,y);
                     current.setObsValue(Node.maxObsValue);
                 }
             }
         }
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
                 Node current = find(x,y);
                 if (current.getObsValue()==Node.maxObsValue) {
                     for (Node n : current.getNeighbours()) {
@@ -47,8 +47,8 @@ public class Grid extends Network{
             }
         }
         //Expand another layer for better path generation
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
                 Node current = find(x,y);
                 if (current.getObsValue()==Node.maxObsValue/2) {
                     for (Node n : current.getNeighbours()) {
@@ -59,9 +59,9 @@ public class Grid extends Network{
             }
         }
     }
-    public void AddObstacle(int x0, int y0, int width, int height, double angle) {
-        for (int x=-width/2; x<width/2; x++) {
-            for (int y=-height/2; y<height/2; y++) {
+    public void AddObstacle(int x0, int y0, int xSize, int ySize, double angle) {
+        for (int x=-xSize/2; x<xSize/2; x++) {
+            for (int y=-ySize/2; y<ySize/2; y++) {
                 int xx = (int)Math.round(x*Math.cos(angle) - y*Math.sin(angle));
                 int yy = (int)Math.round(x*Math.sin(angle) + y*Math.cos(angle));
                 Tile t = find(xx+x0,yy+y0);
@@ -70,12 +70,12 @@ public class Grid extends Network{
             }
         }
     }
-    public int getWidth() {
-        return width;
+    public int getxSize() {
+        return xSize;
     }
 
-    public int getHeight() {
-        return height;
+    public int getySize() {
+        return ySize;
     }
 
     public ArrayList<Tile> getTiles() {

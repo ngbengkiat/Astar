@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 
 public class Launcher {
 
-    public static final int ROW_COUNT = 40;
-    public static final int COLUMN_COUNT = 80;
+    public static final int X_SIZE = 45;
+    public static final int Y_SIZE = 90;
 
     private static MainFrame frame;
     private static JPanel container;
@@ -24,15 +24,16 @@ public class Launcher {
     public static void main(String[] args) {
         
         //Create grid
-        Grid grid = new Grid(COLUMN_COUNT, ROW_COUNT);
+        Grid grid = new Grid(X_SIZE, Y_SIZE);
         //Pre assign neighbours
         for (Tile t : grid.getTiles()) {
             t.calculateNeighbours(grid, true);
         }
-        grid.AddObstacle(15,15, 12,8, 0);
-        grid.AddObstacle(40,6, 12,8, Math.PI/2);
-        grid.AddObstacle(72,10, 16,8, Math.PI/2);
-        grid.AddObstacle(60,30, 16,8, -Math.PI/4);
+        grid.AddObstacle(10,10, 10,4, 0);
+        grid.AddObstacle(10,60, 10,4, Math.PI/4);
+        grid.AddObstacle(40,50, 2,8, 0);
+      //  grid.AddObstacle(72,10, 16,8, Math.PI/2);
+      //  grid.AddObstacle(60,30, 16,8, -Math.PI/4);
         grid.ExpandObstacles();
         //Create solver
         astar = new AStarAlgorithm(grid);
@@ -45,8 +46,8 @@ public class Launcher {
 
     private static void initUI() {
         
-        int w = COLUMN_COUNT * Tile.TILE_SIZE;
-        int h = ROW_COUNT * Tile.TILE_SIZE;
+        int w = X_SIZE * Tile.TILE_SIZE;
+        int h = Y_SIZE * Tile.TILE_SIZE;
         int controlsW = 200;
         int margin = 10;
         
