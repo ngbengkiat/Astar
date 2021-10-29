@@ -24,6 +24,9 @@ public class Grid extends Network{
 
     //Expand obstacle to push robot away. Robot can still go through this expanded cell if necessary
     public void ExpandObstacles() {
+        //Number of cells to expand and their values are defined here
+        double expansion[] = { Node.maxObsValue/2, Node.maxObsValue/5, Node.maxObsValue/20};
+
         //Create obstacle around boundaries
         //Currently 1 cell thick. Likely need to be more than 1 cell
         for (int x = 0; x < xSize; x++) {
@@ -34,26 +37,16 @@ public class Grid extends Network{
                 }
             }
         }
-
-        for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
-                Node current = find(x,y);
-                if (current.getObsValue()==Node.maxObsValue) {
-                    for (Node n : current.getNeighbours()) {
-                        if (n.getObsValue()==0.0)
-                            n.setObsValue(Node.maxObsValue/2);
-                    }
-                }
-            }
-        }
-        //Expand another layer for better path generation
-        for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
-                Node current = find(x,y);
-                if (current.getObsValue()==Node.maxObsValue/2) {
-                    for (Node n : current.getNeighbours()) {
-                        if (n.getObsValue()==0.0)
-                            n.setObsValue(Node.maxObsValue/5);
+        for (int k=0; k<expansion.length; k++) {
+            for (int x = 0; x < xSize; x++) {
+                for (int y = 0; y < ySize; y++) {
+                    double obsValue = expansion[k];
+                    Node current = find(x,y);
+                    if (current.getObsValue()>obsValue) {
+                        for (Node n : current.getNeighbours()) {
+                            if (n.getObsValue()==0.0)
+                                n.setObsValue(obsValue);
+                        }
                     }
                 }
             }
