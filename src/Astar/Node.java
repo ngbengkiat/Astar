@@ -1,6 +1,7 @@
-package pathfinding.element;
+package Astar;
 
 import java.util.ArrayList;
+
 
 public abstract class Node {
     public static double maxObsValue=100.0;

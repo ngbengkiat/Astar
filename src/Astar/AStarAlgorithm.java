@@ -1,10 +1,8 @@
-package pathfinding;
+package Astar;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import pathfinding.element.Network;
-import pathfinding.element.Node;
 
 public class AStarAlgorithm {
 

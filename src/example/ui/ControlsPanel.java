@@ -1,6 +1,5 @@
 package example.ui;
 
-import example.element.Tile;
 import java.awt.Color;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -8,7 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import pathfinding.AStarAlgorithm;
+
+import Astar.AStarAlgorithm;
+import Astar.Tile;
 
 public class ControlsPanel extends JPanel {
 

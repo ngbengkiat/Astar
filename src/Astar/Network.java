@@ -1,4 +1,4 @@
-package pathfinding.element;
+package Astar;
 
 public abstract class Network {
     

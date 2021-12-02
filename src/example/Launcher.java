@@ -1,18 +1,20 @@
 package example;
 
-import example.element.Grid;
-import example.element.Tile;
 import example.ui.ControlsPanel;
 import java.awt.Dimension;
-import pathfinding.AStarAlgorithm;
+
 import example.ui.MainFrame;
 import example.ui.GridPanel;
 import javax.swing.JPanel;
 
+import Astar.AStarAlgorithm;
+import Astar.Grid;
+import Astar.Tile;
+
 public class Launcher {
 
-    public static final int X_SIZE = 45;
-    public static final int Y_SIZE = 90;
+    public static int X_SIZE;
+    public static int Y_SIZE;
 
     private static MainFrame frame;
     private static JPanel container;
@@ -24,17 +26,16 @@ public class Launcher {
     public static void main(String[] args) {
         
         //Create grid
-        Grid grid = new Grid(X_SIZE, Y_SIZE);
-        //Pre assign neighbours
-        for (Tile t : grid.getTiles()) {
-            t.calculateNeighbours(grid, true);
-        }
+        Layout layout = new Layout();
+        Grid grid = new Grid(layout);
+        X_SIZE = grid.getxSize();
+        Y_SIZE = grid.getySize();
+
+        //Add fixed obstacles
         grid.AddObstacle(10,10, 10,4, 0);
         grid.AddObstacle(10,60, 10,4, Math.PI/4);
         grid.AddObstacle(40,50, 2,8, 0);
-      //  grid.AddObstacle(72,10, 16,8, Math.PI/2);
-      //  grid.AddObstacle(60,30, 16,8, -Math.PI/4);
-        grid.ExpandObstacles();
+        grid.ExpandObstacles(50);
         //Create solver
         astar = new AStarAlgorithm(grid);
         

@@ -1,9 +1,7 @@
-package example.element;
+package Astar;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import pathfinding.element.Network;
-import pathfinding.element.Node;
 
 public class Tile extends Node {
 
