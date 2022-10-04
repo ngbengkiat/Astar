@@ -1,4 +1,4 @@
-package example.ui;
+package frc.robot.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import Astar.AStarAlgorithm;
-import Astar.Grid;
-import Astar.Tile;
-import Astar.Node;
+import frc.robot.Astar.AStarAlgorithm;
+import frc.robot.Astar.Grid;
+import frc.robot.Astar.Node;
+import frc.robot.Astar.Tile;
 
 public class GridPanel extends JPanel implements PropertyChangeListener  {
 
@@ -89,7 +89,8 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
 
         
         //This is used to flip the Y-axis
-        int YSIZE = (grid.getySize() - 1) * Tile.TILE_SIZE;
+        g.scale(1,-1);
+        g.translate(0,-getHeight());
 
         g.setStroke(defaultStroke);
 
@@ -102,7 +103,7 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
                     int v = 255- (int)t.getObsValue()*2;
                     g.setColor(new Color(255, v, v));
                     int x = (t.getX() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
-                    int y = YSIZE-(t.getY() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
+                    int y = (t.getY() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
 
                     g.fillOval(x, y, Tile.TILE_SIZE, Tile.TILE_SIZE);
                 }
@@ -113,8 +114,9 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
         if (start != null) {
 
             int x = (start.getX() * Tile.TILE_SIZE) -1;//+ (Tile.TILE_SIZE / 2) - 6;
-            int y = YSIZE-(start.getY() * Tile.TILE_SIZE) -1;//+ (Tile.TILE_SIZE / 2) - 6;
-
+            int y = (start.getY() * Tile.TILE_SIZE) -1;//+ (Tile.TILE_SIZE / 2) - 6;
+            //System.out.println("---");
+            //System.out.println(y);
             g.setColor(new Color(20, 122, 17));
             g.setStroke(widerStroke);
             g.fillOval(x, y, Tile.TILE_SIZE+2, Tile.TILE_SIZE+2);
@@ -122,7 +124,8 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
 
         if (end != null) {
             int x = (end.getX() * Tile.TILE_SIZE)-1;// + (Tile.TILE_SIZE / 2) - 6;
-            int y = YSIZE-(end.getY() * Tile.TILE_SIZE)-1;// + (Tile.TILE_SIZE / 2) - 6;
+            int y = (end.getY() * Tile.TILE_SIZE)-1;// + (Tile.TILE_SIZE / 2) - 6;
+            System.out.println(y);
 
             g.setColor(new Color(16, 49, 119));
             g.setStroke(widerStroke);
@@ -134,12 +137,11 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
             for (int i = 0; i < path.size() - 1; i++) {
                 Tile t = path.get(i);
                 Tile t2 = path.get(i + 1);
-                System.out.printf("(%d,%d\n", t.getX(), t.getY());
                 int x = (t.getX() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
-                int y = YSIZE-(t.getY() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
+                int y = (t.getY() * Tile.TILE_SIZE);// + (Tile.TILE_SIZE / 2) - 5;
 
                 int xx = (t2.getX() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2);
-                int yy = YSIZE-(t2.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2);
+                int yy = (t2.getY() * Tile.TILE_SIZE) + (Tile.TILE_SIZE / 2);
 
                 g.setStroke(widerStroke);
                 g.fillOval(x, y, Tile.TILE_SIZE, Tile.TILE_SIZE);
@@ -150,7 +152,7 @@ public class GridPanel extends JPanel implements PropertyChangeListener  {
 
         g.drawRect(getWidth() - 1, 0, 1, getHeight());
         g.drawRect(0, getHeight() - 1, getWidth(), 1);
-
+        System.out.println("end");
     }
 
     //@Override

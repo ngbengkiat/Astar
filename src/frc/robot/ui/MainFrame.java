@@ -1,4 +1,4 @@
-package example.ui;
+package frc.robot.ui;
 
 import javax.swing.JFrame;
 

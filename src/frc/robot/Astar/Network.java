@@ -1,4 +1,4 @@
-package Astar;
+package frc.robot.Astar;
 
 public abstract class Network {
     

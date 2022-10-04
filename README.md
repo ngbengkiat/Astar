@@ -15,6 +15,7 @@ Modification:
 Author : Ng Beng Kiat
 The search algo is modified to solve for path with lesser number of turns
 It also incorporate features to push path away from obstacles so as to avoid collision.
+Note that Astar is now integrated with the path generation code in Trajectory-Imported
 
 Screenshot of the interactive example provided:<br>
 ![](https://github.com/psikoi/AStar-Pathfinding/blob/master/images/8f3037659be6497cc324a27e2c0c8ef4.png)

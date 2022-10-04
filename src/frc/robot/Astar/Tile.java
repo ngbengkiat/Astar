@@ -1,4 +1,4 @@
-package Astar;
+package frc.robot.Astar;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Tile extends Node {
 
     private int x, y;
-    public static int TILE_SIZE = 7;
+    public static int TILE_SIZE = 6;
 
     public Tile(int x, int y) {
         this.x = x;
@@ -36,6 +36,7 @@ public class Tile extends Node {
 
         if (x > minX) {
             nodes.add(grid.find(x - 1, y)); //west
+            
         }
 
         if (x < maxX) {

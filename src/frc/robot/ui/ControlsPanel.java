@@ -1,4 +1,4 @@
-package example.ui;
+package frc.robot.ui;
 
 import java.awt.Color;
 import java.awt.Label;
@@ -8,8 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import Astar.AStarAlgorithm;
-import Astar.Tile;
+import frc.robot.Astar.AStarAlgorithm;
+import frc.robot.Astar.Tile;
 
 public class ControlsPanel extends JPanel {
 
